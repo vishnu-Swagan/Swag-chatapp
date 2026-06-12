@@ -1,0 +1,114 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "back": "Back",
+    "continue": "Continue",
+    "retry": "Retry",
+    "close": "Close",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "send": "Send",
+    "search": "Search",
+    "error": "Error",
+    "success": "Success"
+  },
+  "auth": {
+    "welcome": "Welcome to Swag Chat",
+    "tagline": "Verified humans only. Private by design.",
+    "login": "Log in",
+    "signup": "Sign up",
+    "email": "Email",
+    "username": "Username",
+    "password": "Password",
+    "acceptTerms": "I accept the Terms & Privacy Policy",
+    "haveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "logout": "Log out",
+    "deleteAccount": "Delete my account"
+  },
+  "verification": {
+    "title": "Identity Verification",
+    "subtitle": "Verify your identity to start chatting",
+    "selectCountry": "Select country",
+    "selectIdType": "Select ID type",
+    "captureId": "Capture ID document",
+    "captureSelfie": "Capture selfie",
+    "submit": "Submit verification",
+    "submitting": "Verifying your identity...",
+    "verified": "You are verified",
+    "failed": "Could not verify identity"
+  },
+  "tabs": {
+    "chats": "Chats",
+    "requests": "Requests",
+    "profile": "Profile"
+  },
+  "chats": {
+    "title": "Chats",
+    "empty": "No chats yet. Search for someone to start chatting.",
+    "searchUser": "Search by username",
+    "typeMessage": "Message",
+    "viewOnce": "View once",
+    "photo": "Photo",
+    "deletedForEveryone": "This message was deleted",
+    "deleteForEveryone": "Delete for everyone",
+    "deleteForMe": "Delete for me",
+    "reportUser": "Report user",
+    "blockUser": "Block user",
+    "unblockUser": "Unblock",
+    "callVoice": "Voice call",
+    "callVideo": "Video call"
+  },
+  "requests": {
+    "title": "Friend requests",
+    "incoming": "Incoming",
+    "outgoing": "Sent",
+    "empty": "No pending requests",
+    "accept": "Accept",
+    "reject": "Decline",
+    "sendRequest": "Send request"
+  },
+  "profile": {
+    "title": "Profile",
+    "verifiedBadge": "Verified",
+    "unverifiedBadge": "Not verified",
+    "settings": "Settings",
+    "blockedUsers": "Blocked users",
+    "legal": "Legal & privacy",
+    "language": "Language",
+    "adminPanel": "Admin panel"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "languageSubtitle": "Choose your app language",
+    "haptics": "Haptic feedback",
+    "about": "About Swag Chat",
+    "dfeHelp": "Long-press your sent messages to remove them from both sides within 60 minutes of sending.",
+    "screenshotHelp": "Screenshots are always blocked on Android and detected on iOS — your conversation partner is notified when anyone tries to capture the chat or your photos."
+  },
+  "call": {
+    "incoming": "Incoming call",
+    "voiceCalling": "Voice calling",
+    "videoCalling": "Video calling",
+    "calling": "Calling...",
+    "connecting": "Connecting...",
+    "accept": "Accept",
+    "decline": "Decline",
+    "endCall": "End call",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "speaker": "Speaker",
+    "camera": "Camera"
+  },
+  "errors": {
+    "network": "Network error. Please try again.",
+    "unauthorized": "Please log in to continue.",
+    "generic": "Something went wrong."
+  }
+}

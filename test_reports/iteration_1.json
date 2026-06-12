@@ -1,0 +1,47 @@
+{
+  "summary": "MonoChat MVP first test run — both backend & frontend tested. Backend: 30/30 pytest cases passed (auth, verification gating, country list, AI verification structured response, friend request flow, messaging text+image, chats list, mark-read, non-friend blocking, WebSocket message push, call:unavailable signaling, invalid token rejection). Frontend (390x800 web preview): login as alice@test.com -> Chats tab loads with bob_test conversation, Requests tab search of bob_test shows 'Already connected', tapping chat row opens chat room and a text message is sent and rendered with status tick, Profile tab shows @alice_test + Identity Verified badge + Sign Out returns to auth screen. Signup with brand-new user redirects to /verification and India -> Aadhaar -> ID step with 'From Gallery' button all render correctly. Realtime WS pushes verified at API level (message:new received). No critical issues. Minor non-blocking warnings: shadow* style props deprecated and useNativeDriver/RCTAnimation warning (Expo web platform).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/auth/signup", "issue": "Short password returns HTTP 422 (Pydantic validation error) instead of 400 with custom message — acceptable but inconsistent with other validation errors (400)."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "all", "issues": ["Expo web console warnings: deprecated 'shadow*' style props (use 'boxShadow'), and 'props.pointerEvents is deprecated (use style.pointerEvents)' — non-blocking but should be cleaned up for React Native Web compliance."]}
+    ],
+    "react_native_issues": [
+      {"component": "StyleSheet shadow* props", "issue": "Deprecated 'shadow*' style props detected on web. Should migrate to boxShadow or platform-specific shadow API. Reference: console warnings on every screen load."},
+      {"component": "pointerEvents prop", "issue": "Deprecated 'props.pointerEvents' usage — should be moved into style.pointerEvents. Reference: console warning emitted from a Pressable/View after login submit."}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_monochat_api.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "(Optional) Replace 'shadow*' style props with boxShadow (or wrap with Platform.OS check) to silence RNW deprecation warnings.",
+    "(Optional) Move pointerEvents from prop to style.pointerEvents in the affected component (likely an ActivityIndicator wrapper or overlay).",
+    "(Optional) Return a consistent 400 with a friendly message for short passwords instead of FastAPI's default 422 from Pydantic Field(min_length=8)."
+  ],
+  "critical_code_review_comments": [
+    "server.py is a single 530-line module; consider splitting into routers (auth, verification, friends, chat, ws) once it grows past 700 lines.",
+    "Image messages store full base64 in MongoDB documents — fine for MVP but will bloat the DB and the GET /api/messages payload (image_base64 is correctly excluded from /api/chats last_message projection).",
+    "/api/messages does not validate type='image' payload size or MIME prefix — consider a max length / prefix check before persisting.",
+    "WebSocket handler silently drops 'rtc:*'/'call:*' events without ack when target offline (only 'call:request' emits 'call:unavailable'). For better UX, also emit 'call:unavailable' for 'rtc:offer' when target is offline."
+  ],
+  "updated_files": [
+    "/app/backend/tests/__init__.py (new, empty)",
+    "/app/backend/tests/conftest.py (new)",
+    "/app/backend/tests/test_monochat_api.py (new, 30 pytest cases)"
+  ],
+  "success_rate": {"backend": "100% (30/30)", "frontend": "100% (all targeted flows passed)"},
+  "seed_data_creation": "Re-ran /app/backend/seed_test_users.py — alice_test and bob_test already present and verified (idempotent). Multiple TEST_/newuser_* signups were created during testing and friendship between alice & bob is now established in MongoDB.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend URL: EXPO_PUBLIC_BACKEND_URL=https://face-verify-chat-2.preview.emergentagent.com. Seeded verified users: alice@test.com / Test@1234 (alice_test), bob@test.com / Test@1234 (bob_test) — alice and bob are NOW FRIENDS in DB (created during this test run); the Requests search shows 'Already connected'. Test pytest file: /app/backend/tests/test_monochat_api.py — reuse it for regression. WebSocket tests require websockets and pillow pip packages (already installed). AI verification endpoint (/api/verification/submit) was hit once and returned structured response — uses LLM credits, avoid hammering it.",
+  "rca_of_issue": "No bug RCA needed — all targeted backend and frontend flows passed. The earlier chat-row click 'failed' on the first frontend run was a test-script timing issue (clicked the row, then immediately tried to interact before router push completed) — re-run with a wait_for_timeout(2500) after click confirmed the chat-room screen opens, message sends, and bubble renders with the status tick."
+}

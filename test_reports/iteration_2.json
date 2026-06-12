@@ -1,0 +1,43 @@
+{
+  "summary": "Swag Chat iteration 2 — exhaustive testing of new safety + admin CRM features. BACKEND: 18/18 new pytest cases in /app/backend/tests/test_safety_and_admin.py PASSED (signup terms enforcement, signup happy-path returns role=user, lockout after 5 wrong attempts → 429, block/unblock + chat hide + bidirectional message 403, report endpoint with auto-block, delete-for-everyone happy path scrubs text+image, view-once image disappears after image-viewed, screenshot event logged, account DELETE then login returns 400 'Incorrect email or password', /api/admin/me 403 for end-user / 200 admin, /api/admin/stats returns int counters, PII masked by default + reveal works for admin / supervisor's reveal silently downgraded, /api/admin/reports?status_filter=open + resolve block_user suspends bob → login returns 403 'Account suspended.' → unsuspend restores, /api/admin/roles + audit-log admin-only — manager 403, audit log contains set_role with actor_username=admin). FRONTEND (web, 1280x800 + 390x844): signup tab shows both auth-accept-terms and auth-accept-biometric checkboxes, submitting without ticking shows error 'You must accept the Terms & Privacy Policy' on auth-error-text, ticking both + strong pw creates account and navigates to /verification. Admin gate: alice@test.com → /admin renders 'Staff access required' (no admin-screen). Admin login: admin@swagchat.app → /admin renders admin-screen + all 6 sidebar testIDs (overview/users/reports/security/screenshots/audit); Users tab shows masked emails, admin-user-bob_test row and admin-suspend-bob_test button present. No critical issues found. Minor pre-existing RNW warnings persist (shadow*/useNativeDriver/pointerEvents) — flagged in iteration 1, not blocking.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": [
+      {"component": "StyleSheet shadow* props", "issue": "Pre-existing RNW deprecation warning '\"shadow*\" style props are deprecated. Use \"boxShadow\".' still emitted on every screen. Carryover from iteration 1. Reference: /app/frontend/app/* StyleSheet definitions."},
+      {"component": "useNativeDriver", "issue": "Pre-existing warning: Animated: `useNativeDriver` is not supported on web (RCTAnimation missing). Non-blocking on web preview. Reference: /app/frontend/app/auth.tsx and possibly other animated views."}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_safety_and_admin.py",
+    "/app/backend/tests/test_monochat_api.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/safety_admin_results.xml"
+  ],
+  "action_items": [
+    "(Optional, carryover) Replace 'shadow*' style props with boxShadow (or Platform.OS check) to silence RNW warnings.",
+    "(Optional, carryover) Disable useNativeDriver on web (Platform.OS==='web') to remove the animated warning."
+  ],
+  "critical_code_review_comments": [
+    "/app/backend/server.py is now 1154 lines — strongly recommend splitting into routers (auth.py, safety.py, admin.py, chat.py, verification.py, ws.py) per FastAPI best-practice; the file exceeded the 700-line threshold this iteration.",
+    "admin_users() builds a regex query directly from user input (q): `{'$regex': q_clean}` without re.escape — special regex chars in q will break the search or open ReDoS. Wrap with re.escape(q_clean) before passing.",
+    "/api/admin/users uses 'reveal=true' as a query string parameter — anything captured into request logs will leak that PII was revealed AND the reason; consider POSTing a reveal request to a dedicated endpoint that only returns the unmasked record for one user_id, paired with audit.",
+    "delete-for-everyone uses datetime.fromisoformat(msg['created_at']) — if any legacy doc stored a non-ISO timestamp, this will 500. Wrap in try/except for safety.",
+    "/api/messages still accepts unbounded image_base64 (data URL or raw); admin-suspended target users can still RECEIVE messages from non-suspended users because the block check (is_blocked_either_way) does not consider 'suspended' state. Consider gating message send when recipient.suspended=True with a 403.",
+    "/api/safety/screenshot accepts any chat_with (no friendship check) — a malicious client could spam fake screenshot WS pushes to any user_id. Add an are_friends() check or validate chat_with is in user's friend list."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_safety_and_admin.py (new, 18 pytest cases)"
+  ],
+  "success_rate": {"backend": "100% (18/18 safety+admin) — 30/30 prior monochat tests still pass independently", "frontend": "100% (all targeted flows: auth consent, admin gate, admin tabs+users+suspend button)"},
+  "seed_data_creation": "Re-ran /app/backend/seed_test_users.py — alice/bob/admin/manager/supervisor all present and verified (idempotent). After tests, reset alice/bob blocked_users=[] + cleared any suspended flag + ensured alice<->bob friendship (the lockout test created a throwaway 'lk_*' user which is left in DB but inert; signup test created a throwaway 'trm_*'/qaui_* user).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend URL: EXPO_PUBLIC_BACKEND_URL=https://face-verify-chat-2.preview.emergentagent.com. Pytest files: /app/backend/tests/test_monochat_api.py (core chat) + /app/backend/tests/test_safety_and_admin.py (safety + admin). The safety/admin suite auto-resets alice & bob blocked_users + clears 'suspended' on bob at module setup, so it is RE-RUNNABLE without manual cleanup. Admin/manager/supervisor seeded staff accounts are available; manager and supervisor roles work as expected (supervisor's reveal=true is silently downgraded; manager cannot access /api/admin/audit-log). Frontend admin CRM is web-only; on mobile (375px) /admin redirects to /. View-once and delete-for-everyone reliably scrub image_base64 + text in subsequent GET /api/messages payloads. expo-screen-capture detection cannot fire on web preview (no native module) — only the POST /api/safety/screenshot endpoint is exercised. WebRTC voice/video tests were SKIPPED per spec (need native build).",
+  "rca_of_issue": "Not applicable — no failing test or open bug at the end of this iteration. The earlier 'signup blocked by terms' bug has been fully fixed end-to-end: backend enforces accepted_terms, frontend collects both consent checkboxes and forwards acceptedTerms in /api/auth/signup."
+}

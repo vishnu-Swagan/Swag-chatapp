@@ -1,0 +1,52 @@
+{
+  "summary": "Swag Chat iteration 4 — WhatsApp-grade messaging features verified end-to-end. BACKEND: 63/64 pytest cases PASS in 23.55s (1 LLM 502 intermittent — pre-existing, acceptable per request). Added 16 NEW feature tests in /app/backend/tests/test_messaging_features.py covering: profile image upload/get/delete + over-size 400, voice/video/location/document messaging incl. duration_ms + waveform persistence, validation 400s for audio/location/document missing fields, reply_preview {id, sender_id, type, text} populated when reply_to_id provided, /api/messages/react toggle (add → 'added' + WS message:reaction push to bob; same emoji again → 'removed' + WS push), /api/typing → WS 'typing' event to friend (and {sent:false} for non-friend), /api/chats/{friend_id}/read → 'messages:read' WS push back to sender. ALL 16 PASS. Baseline 48 regression PASS. FRONTEND (390x844 mobile viewport, EXPO_PUBLIC_BACKEND_URL preview): boot OK, login as alice@test.com / Test@1234 lands on /chats. profile-screen renders with profile-avatar-edit Pressable wrapping the Avatar and a camera-icon badge overlay (verified visually + DOM presence). chat-row-bob_test row opens /chat/{bob_id}?username=bob_test → chat-room-screen present. chat-attach-button visible; tap renders the AttachmentSheet bottom modal with ALL FIVE testIDs: attach-camera, attach-image, attach-video, attach-document, attach-location. chat-text-input + chat-view-once-toggle + chat-voice-button render by default; typing into the input swaps chat-voice-button → chat-send-button as expected. Reply preview block (rendered as the small quoted card with 'You / original message body' above the input) was visible from prior test-message persistence. Header shows @bob_test username and 'Verified · Screenshots blocked' subtitle. Document bubble (spec.pdf, 12.1 KB) and Location bubble (Bengaluru HQ, 12.97160, 77.59460) both rendered correctly inside the bubble list from messages persisted via pytest. No red-screen errors. Pre-existing RNW shadow*/useNativeDriver warnings persist (non-blocking, carryover from iters 1-3).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/verification/submit", "issue": "Test test_monochat_api.py::TestVerification::test_submit_returns_structured_response failed because the LLM gateway returned 502 (Cloudflare error page). The test's first assertion 'r2.status_code < 500' fires before the fallback branch that allows 502. Pre-existing, request states '1 deselected LLM test acceptable'. NOT a regression and NOT related to iteration-4 features. Recommend either deselecting with -k 'not test_submit_returns_structured_response' or making the assertion 'r2.status_code in (200, 502)' first."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": [
+      {"component": "StyleSheet shadow* props", "issue": "Pre-existing RNW deprecation warning '\"shadow*\" style props are deprecated. Use \"boxShadow\".' Carryover from iterations 1-3. Reference: multiple files using StyleSheet.create with shadowColor/shadowOpacity/shadowRadius/shadowOffset. Suggest moving to a Platform.OS==='web' boxShadow guard."},
+      {"component": "Animated useNativeDriver on web", "issue": "Pre-existing warning: 'Animated: useNativeDriver is not supported because the native animated module is missing. Falling back to JS-based animation.' Carryover from prior iterations. Non-blocking on web preview. Reference: /app/frontend/app/auth.tsx and other animated views."}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_messaging_features.py",
+    "/app/backend/tests/test_monochat_api.py",
+    "/app/backend/tests/test_safety_and_admin.py",
+    "/app/test_reports/pytest/iteration_4_full.xml",
+    "/app/test_reports/pytest/iteration_4_features.xml",
+    "/app/test_reports/pytest/iteration_4_baseline.xml"
+  ],
+  "action_items": [
+    "(Optional) Loosen TestVerification::test_submit_returns_structured_response assertion to 'assert r2.status_code in (200, 502)' before checking <500, or deselect by default — current strict assertion breaks when the upstream LLM gateway returns Cloudflare 502.",
+    "(Optional, carryover from iter 1-3) Replace shadow* style props with boxShadow (Platform.OS guard) on web to silence RNW warnings.",
+    "(Optional, carryover) Disable useNativeDriver on web (Platform.OS==='web') to remove the animated warning."
+  ],
+  "critical_code_review_comments": [
+    "/app/backend/routes/chat.py upload_profile_image checks 'len(image_base64) > 2_500_000' — fine for ~1.8MB raw bytes after base64 expansion. Good defensive cap.",
+    "/app/backend/routes/chat.py send_message: the WS push at line 175 sends the full msg dict including base64 blobs (image/video/audio/document). For large media this could cause WS frame bloat — consider sending a stripped 'message:new-preview' and letting the client fetch the full message on demand. Not a bug in this iteration but a future scalability note.",
+    "/app/backend/routes/chat.py mark_read only pushes 'messages:read' to friend_id (the original sender). Correct.",
+    "/app/backend/routes/chat.py toggle_reaction emits WS to 'other' party only — does NOT echo back to the reactor's own connections, so multi-device users won't see their own reaction sync. Minor.",
+    "/app/backend/routes/ws.py typing branch via WS (mtype=='typing') is duplicated by REST POST /api/typing. Both work; clients can use either. Just be aware to avoid double-push.",
+    "/app/frontend/app/(tabs)/profile.tsx onAvatarPress on web uses native confirm() to decide between change/remove — functional but no remove path if user just dismisses. Consider a small action sheet for web parity.",
+    "/app/frontend/src/components/AttachmentSheet.tsx Modal scrim has backgroundColor 'rgba(0,0,0,0.35)' — fine; the inner sheet correctly stops click propagation via the Pressable wrap. Note: 'image' on web actually opens the system file picker which IS exercisable in headless (out of scope for this run)."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_messaging_features.py (created — 16 new tests for iteration-4 features)"
+  ],
+  "success_rate": {
+    "backend": "98.4% (63/64 pytest cases passed; only LLM-gateway 502 intermittent failed — pre-existing, acceptable per request). 16/16 NEW iteration-4 feature tests passed.",
+    "frontend": "100% (boot, alice login, /chats list with bob row + profile_image avatar, profile-avatar-edit Pressable + camera badge overlay, /chat/{bob_id} screen open, chat-attach-button → AttachmentSheet with all 5 testIDs (camera/image/video/document/location), chat-text-input ↔ chat-voice-button ↔ chat-send-button swap on typing, reply preview card visible — all verified)."
+  },
+  "seed_data_creation": "No seed data changes. The session-level conftest _reset_test_state fixture clears friendships/requests/messages/reports before the run, then TestRequests::test_full_request_accept_flow + every TestMessaging/TestReactions/TestTyping/TestReadReceipts helper re-establishes alice↔bob friendship idempotently via /api/users/search → /api/requests → /api/requests/{id}/respond. Profile image upload for bob is also performed inside TestProfileImage::test_get_friend_profile_image, so /chats list on the frontend now shows bob with a real avatar image rather than initials.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend URL: https://face-verify-chat-2.preview.emergentagent.com (EXPO_PUBLIC_BACKEND_URL). Run: cd /app/backend && pytest tests/ -v --tb=short. New feature tests live in /app/backend/tests/test_messaging_features.py (16 tests, all green). Mobile viewport for UI runs: 390x844. Test creds: alice@test.com/Test@1234, bob@test.com/Test@1234 (/app/memory/test_credentials.md). Key new endpoints: POST/DELETE /api/profile/image, GET /api/profile/image/{id}, POST /api/messages/react, POST /api/typing, POST /api/chats/{friend_id}/read; expanded /api/messages payload supports types audio/video/location/document + reply_to_id with reply_preview snippet. WS event types pushed: message:new (full message dict), message:reaction {message_id, by, emoji, action, reactions}, typing {from, typing}, messages:read {by}. Frontend testIDs in chat screen: chat-attach-button, chat-text-input, chat-send-button (only when text non-empty), chat-voice-button (only when text empty), chat-view-once-toggle, chat-typing-indicator (only when peer typing), reply-cancel (only when replying). Attachment sheet items: attach-{camera,image,video,document,location}. Profile screen: profile-avatar-edit wraps Avatar with camera-badge overlay. Only known failure across the suite is the LLM 502 flake on /api/verification/submit which is unrelated to iteration-4 features.",
+  "rca_of_issue": "test_monochat_api.py::TestVerification::test_submit_returns_structured_response fails because the test asserts 'r2.status_code < 500' BEFORE the fallback branch that explicitly accepts 502 ('assert r2.status_code in (502,)'). When the upstream Emergent LLM gateway returns a Cloudflare 502 (as observed in this run), the first assertion fires and the second branch never executes. FIX: swap the order so the test does 'if r2.status_code == 200: ... elif r2.status_code == 502: pytest.skip(...) else: pytest.fail(...)'. Not a product bug; test-logic only."
+}

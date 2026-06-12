@@ -1,0 +1,172 @@
+{
+  "app_name": "MonoChat",
+  "personality": "1 iOS-Native Clean (Strict Monochrome Adaptation)",
+  "personality_one_liner": "A highly secure, minimalist communication tool where absolute trust is conveyed through stark, clinical, and precise monochrome design.",
+  "color": {
+    "surface": "#FFFFFF",
+    "onSurface": "#000000",
+    "surfaceSecondary": "#F5F5F5",
+    "onSurfaceSecondary": "#111111",
+    "surfaceTertiary": "#EAEAEA",
+    "onSurfaceTertiary": "#222222",
+    "surfaceInverse": "#000000",
+    "onSurfaceInverse": "#FFFFFF",
+    "brand": "#000000",
+    "brandPrimary": "#000000",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#333333",
+    "onBrandSecondary": "#FFFFFF",
+    "brandTertiary": "#EAEAEA",
+    "onBrandTertiary": "#000000",
+    "success": "#111111",
+    "onSuccess": "#FFFFFF",
+    "warning": "#555555",
+    "onWarning": "#FFFFFF",
+    "error": "#333333",
+    "onError": "#FFFFFF",
+    "info": "#777777",
+    "onInfo": "#FFFFFF",
+    "border": "#E5E5E5",
+    "borderStrong": "#000000",
+    "divider": "#F0F0F0"
+  },
+  "typography": {
+    "displayFontFamily": "Geist",
+    "textFontFamily": "Geist",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous padding to let the monochrome elements breathe. No cramped sections. Use bottom padding for sticky CTAs.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": "1",
+  "navigation": "bottom_tabs",
+  "icon_set": "Phosphor",
+  "glassmorphism": {
+    "enabled": "true",
+    "do's": [
+      "Use glass headers on the Chat Room over scrolling message bubbles.",
+      "Use glass for the bottom tab bar.",
+      "Use glass for sticky bottom CTAs during the ID verification scroll."
+    ],
+    "dont's": [
+      "Do not use glass for individual chat bubbles.",
+      "Do not use glass on form inputs or dense settings rows."
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Auth",
+      "purpose": "Email/password and unique username signup/login.",
+      "states": {
+        "loading": "Spinner centered on a white screen.",
+        "empty": "N/A",
+        "error": "Standard text error message under the respective input field in dark grey."
+      },
+      "layout": "Single column form. Top logo or abstract geometric background image. Inputs for Email, Password, Username. Sticky primary CTA at the bottom 'Continue' over keyboard."
+    },
+    {
+      "name": "VerificationFlow",
+      "purpose": "Multi-step flow for ID and Selfie capture with AI face matching.",
+      "states": {
+        "loading": "Simulated AI scanning state with a centered spinner and 'Verifying identity...' text.",
+        "empty": "N/A",
+        "error": "Full screen error with 'Verification Failed' and 'Retry Capture' sticky button."
+      },
+      "layout": "Step 1: Country & ID Type selection. Step 2: Camera view for ID with an outlined bounding box to guide user framing. Step 3: Selfie camera view with oval overlay for face. Step 4: Processing. Strict black and white styling, clear instructional text at the top."
+    },
+    {
+      "name": "ChatsList",
+      "purpose": "List of active 1-on-1 conversations.",
+      "states": {
+        "loading": "Skeleton rows of chat list items.",
+        "empty": "Illustration of a secure padlock with 'No active chats. Search a username to connect.'",
+        "error": "Text 'Unable to load chats' with retry button."
+      },
+      "layout": "Standard iOS style list. Glass header with 'Chats' title. Search bar below header. Each row: Avatar (Initials or Photo), Username, Last Message, Timestamp. Bottom Tab Bar."
+    },
+    {
+      "name": "ChatRoom",
+      "purpose": "1-to-1 WebSockets messaging with photo attachments and call buttons.",
+      "states": {
+        "loading": "Spinner in the center.",
+        "empty": "Clean white screen with bottom input bar. 'Say hi to @username'.",
+        "error": "Error banner at the top under the glass header."
+      },
+      "layout": "Glass header showing recipient username, and Call/Video Call icons on the right. Scrollable message area. Sent messages: Black background, white text, right-aligned. Received messages: surfaceTertiary background, black text, left-aligned. Bottom sticky input with attachment icon."
+    },
+    {
+      "name": "CallRoom",
+      "purpose": "WebRTC Voice and Video call interface.",
+      "states": {
+        "loading": "Calling... state with pulsating avatar.",
+        "empty": "N/A",
+        "error": "Call failed screen with reconnect button."
+      },
+      "layout": "Full bleed camera view (for video) or black screen (for audio). Controls overlaid at the bottom: Mute, Speaker, Camera Toggle, and a prominent dark grey/black End Call pill."
+    },
+    {
+      "name": "Requests",
+      "purpose": "Search exact usernames and manage incoming friend requests.",
+      "states": {
+        "loading": "Skeleton list.",
+        "empty": "Text 'No pending requests.'",
+        "error": "Error fetching requests."
+      },
+      "layout": "Top section: Exact username search bar with a 'Send Request' button. Bottom section: List of incoming requests with 'Accept' (Black pill) and 'Reject' (Grey pill) actions."
+    }
+  ],
+  "images": {
+    "auth_background": {
+      "url": "https://images.unsplash.com/photo-1648218466069-bb93310f97b7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwYWJzdHJhY3QlMjBnZW9tZXRyaWMlMjBiYWNrZ3JvdW5kfGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc4MTE0NzY3OXww&ixlib=rb-4.1.0&q=85",
+      "alt": "Abstract black and white geometric shapes"
+    },
+    "auth_background_dark": {
+      "url": "https://images.unsplash.com/photo-1640346876473-f76a73c71539?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwYWJzdHJhY3QlMjBnZW9tZXRyaWMlMjBiYWNrZ3JvdW5kfGVufDB8fHxibGFja19hbmRfd2hpdGV8MTc4MTE0NzY3OXww&ixlib=rb-4.1.0&q=85",
+      "alt": "Dark abstract geometric cubes"
+    },
+    "empty_chats": {
+      "url": "https://images.unsplash.com/photo-1592921195496-6ff2e332c0f6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwxfHxwYWRsb2NrJTIwc2VjdXJlJTIwbWVzc2FnZXxlbnwwfHx8YmxhY2tfYW5kX3doaXRlfDE3ODExNDc2Nzl8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Black and white padlock representing secure messages"
+    }
+  },
+  "instructions_to_main_agent": [
+    "STRICT MONOCHROME ENFORCEMENT: The user explicitly asked for 'Grey white and black'. Do not use ANY default iOS blues (e.g., for system buttons, links, or active tab indicators). Everything must map to the provided grayscale tokens.",
+    "Do not use status colors like green for success or red for error. Map everything to the designated dark grey/black tokens (success: #111111, error: #333333).",
+    "Verification Flow (KYC): Implement a sequential flow using expo-camera. Ensure UI overlays like bounding boxes (for ID) and ovals (for Face) are drawn cleanly using SVG or view borders over the camera feed.",
+    "Chat Layout: Sent messages should use surfaceInverse (Black) with onSurfaceInverse (White) text. Received messages use surfaceTertiary (Light Grey) with onSurfaceTertiary (Dark Grey) text. Do not use generic AI-looking chat bubbles; make them clean with md radius.",
+    "WebRTC Integration: Build dedicated CallRoom UI prioritizing edge-to-edge camera views and floating action controls at the bottom over a subtle gradient scrim.",
+    "For user avatars, use a generated Initials avatar on a surfaceTertiary background if a photo isn't available.",
+    "Images MUST utilize the expo-linear-gradient scrim when text is overlaid on the auth splash background."
+  ]
+}

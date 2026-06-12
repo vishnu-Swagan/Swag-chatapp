@@ -1,0 +1,114 @@
+{
+  "common": {
+    "loading": "جارٍ التحميل...",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "save": "حفظ",
+    "delete": "حذف",
+    "back": "رجوع",
+    "continue": "متابعة",
+    "retry": "إعادة المحاولة",
+    "close": "إغلاق",
+    "ok": "موافق",
+    "yes": "نعم",
+    "no": "لا",
+    "send": "إرسال",
+    "search": "بحث",
+    "error": "خطأ",
+    "success": "نجاح"
+  },
+  "auth": {
+    "welcome": "مرحبًا بك في Swag Chat",
+    "tagline": "موثّقون فقط. خصوصية بالتصميم.",
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "acceptTerms": "أوافق على الشروط وسياسة الخصوصية",
+    "haveAccount": "لديك حساب؟",
+    "noAccount": "ليس لديك حساب؟",
+    "logout": "تسجيل الخروج",
+    "deleteAccount": "حذف حسابي"
+  },
+  "verification": {
+    "title": "التحقق من الهوية",
+    "subtitle": "تحقق من هويتك لبدء الدردشة",
+    "selectCountry": "اختر البلد",
+    "selectIdType": "اختر نوع الهوية",
+    "captureId": "التقاط الهوية",
+    "captureSelfie": "التقاط صورة شخصية",
+    "submit": "إرسال التحقق",
+    "submitting": "جارٍ التحقق...",
+    "verified": "تم التحقق",
+    "failed": "تعذر التحقق"
+  },
+  "tabs": {
+    "chats": "المحادثات",
+    "requests": "الطلبات",
+    "profile": "الملف الشخصي"
+  },
+  "chats": {
+    "title": "المحادثات",
+    "empty": "لا توجد محادثات. ابحث عن شخص لبدء الدردشة.",
+    "searchUser": "ابحث عن مستخدم",
+    "typeMessage": "رسالة",
+    "viewOnce": "عرض لمرة واحدة",
+    "photo": "صورة",
+    "deletedForEveryone": "تم حذف الرسالة",
+    "deleteForEveryone": "حذف للجميع",
+    "deleteForMe": "حذف عندي",
+    "reportUser": "إبلاغ",
+    "blockUser": "حظر",
+    "unblockUser": "إلغاء الحظر",
+    "callVoice": "مكالمة صوتية",
+    "callVideo": "مكالمة فيديو"
+  },
+  "requests": {
+    "title": "طلبات الصداقة",
+    "incoming": "الواردة",
+    "outgoing": "المرسلة",
+    "empty": "لا توجد طلبات",
+    "accept": "قبول",
+    "reject": "رفض",
+    "sendRequest": "إرسال طلب"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "verifiedBadge": "موثّق",
+    "unverifiedBadge": "غير موثّق",
+    "settings": "الإعدادات",
+    "blockedUsers": "المستخدمون المحظورون",
+    "legal": "قانوني وخصوصية",
+    "language": "اللغة",
+    "adminPanel": "لوحة الإدارة"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "language": "اللغة",
+    "languageSubtitle": "اختر لغة التطبيق",
+    "haptics": "الاهتزاز",
+    "about": "حول Swag Chat",
+    "dfeHelp": "اضغط مطولاً على رسائلك المرسلة لحذفها من الجانبين خلال 60 دقيقة.",
+    "screenshotHelp": "لقطات الشاشة محجوبة دائماً على Android ومكتشفة على iOS — يتم إعلام محادثك عند أي محاولة التقاط."
+  },
+  "call": {
+    "incoming": "مكالمة واردة",
+    "voiceCalling": "مكالمة صوتية",
+    "videoCalling": "مكالمة فيديو",
+    "calling": "جارٍ الاتصال...",
+    "connecting": "جارٍ الاتصال...",
+    "accept": "قبول",
+    "decline": "رفض",
+    "endCall": "إنهاء",
+    "mute": "كتم",
+    "unmute": "إلغاء الكتم",
+    "speaker": "مكبر الصوت",
+    "camera": "الكاميرا"
+  },
+  "errors": {
+    "network": "خطأ في الشبكة.",
+    "unauthorized": "الرجاء تسجيل الدخول.",
+    "generic": "حدث خطأ ما."
+  }
+}

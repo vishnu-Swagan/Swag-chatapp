@@ -1,0 +1,43 @@
+{
+  "summary": "Swag Chat iteration 3 — full regression after server.py modularization + i18n + motion graphics. BACKEND: 48/48 pytest cases PASS in 20.23s (`pytest /app/backend/tests/ -v`). All targeted scenarios green: signup terms enforcement (400 when accepted_terms missing), login 200 for all 5 seeded accounts (alice/bob/admin/manager/supervisor), full friend-request + accept + text + image messaging flow between alice and bob, verification gating returns 403 on /api/chats, /api/requests, /api/users/search for unverified users, /api/admin/me admin-only, /api/admin/stats returns int counters, /api/admin/users reveal=true gating + PII masking, /api/admin/reports resolve→suspend bob, /api/admin/roles + /api/admin/audit-log admin-only (manager 403, supervisor reveal silently downgraded), WebSocket /api/ws rejects bad token, accepts valid token, and pushes message:new to recipient. The previously-LLM-deselected verification submit test now also PASSES (Emergent LLM reachable). FRONTEND (390x844 mobile viewport, EXPO_PUBLIC_BACKEND_URL preview): auth screen renders 'Swag Chat / Meet verified people you can trust.' with Log In + Sign Up tabs. Login as alice@test.com / Test@1234 navigates to /chats with bottom tabs labeled Chats / Requests / Profile (i18n EN). Profile → 'Privacy & Safety Settings' → /settings shows header 'Settings', dfe toggle, and the new Language section with 5 options (English / Español / Français / हिन्दी / العربية). Tapping lang-option-es immediately re-renders the header as 'Ajustes' and the picker label as 'Idioma' with 'Elige el idioma de la app' subtitle and the 'Eliminar para todos' card label — confirming i18n + AsyncStorage 'swagchat.language' wiring works end-to-end. No red-screen errors. Pre-existing RNW shadow*/useNativeDriver warnings persist (non-blocking).",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "/settings", "issues": ["Two help strings on the Settings screen are still HARDCODED in English and do NOT translate when language switches: (1) 'Long-press your sent messages to remove them from both sides within 60 minutes of sending.' (settings.tsx line 70-72) and (2) 'Screenshots are always blocked on Android and detected on iOS — your conversation partner is notified when anyone tries to capture the chat or your photos.' (settings.tsx line 87-90). Header + dfe label + Language section translate correctly, but these two descriptive paragraphs stay in EN. Consider moving to settings.deleteForEveryoneHelp / settings.screenshotInfo keys in all 5 locale files."]}
+    ],
+    "react_native_issues": [
+      {"component": "StyleSheet shadow* props", "issue": "Pre-existing RNW deprecation warning '\"shadow*\" style props are deprecated. Use \"boxShadow\".' carryover from iterations 1 and 2. Reference: multiple files using StyleSheet.create with shadowColor/shadowOpacity/etc."},
+      {"component": "Animated useNativeDriver on web", "issue": "Pre-existing warning: 'Animated: useNativeDriver is not supported because the native animated module is missing. Falling back to JS-based animation.' carryover from prior iterations. Non-blocking on web preview. Reference: /app/frontend/app/auth.tsx and other animated views."}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_monochat_api.py",
+    "/app/backend/tests/test_safety_and_admin.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/iteration_3_results.xml"
+  ],
+  "action_items": [
+    "(Optional polish) Translate the two hardcoded English help paragraphs on /settings (delete-for-everyone help + screenshot info) by extracting to i18n keys and adding them to en/es/fr/hi/ar locale files.",
+    "(Optional, carryover from iter 1+2) Replace shadow* style props with boxShadow (or Platform.OS guard) to silence RNW warnings.",
+    "(Optional, carryover) Disable useNativeDriver on web (Platform.OS==='web') to remove the animated warning."
+  ],
+  "critical_code_review_comments": [
+    "Backend modularization done: server.py now mounts routers from /app/backend/routes/{auth,chat,safety,admin,verification,social,ws}.py — addresses iter-2 comment about the 1154-line monolith. Routes are reasonably scoped; ws.py + admin.py are the largest. No further split needed unless they grow.",
+    "/app/frontend/app/settings.tsx: only the 'Delete for everyone' label uses t() — the body copy under it (lines 69-72) is still a hardcoded string literal, which breaks the i18n promise for that screen. Same for the screenshot info card (lines 86-89).",
+    "/app/backend/routes/admin.py admin_users still builds a regex from q without re.escape (carry-over from iter 2 review). Not exploited by any test, but flagged again.",
+    "/app/backend/routes/safety.py /api/safety/screenshot still accepts any chat_with without friendship check (carry-over).",
+    "i18n: locales bundle is shipped via static imports — fine for 5 small files, but if more languages are added, consider lazy loading namespaces to keep the JS bundle lean for the web preview."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (48/48 pytest cases passed in 20.23s)", "frontend": "100% (boot, login, chats tab i18n, profile → settings link, language picker visible, EN→ES switch updates header to 'Ajustes' + 'Idioma' all verified)"},
+  "seed_data_creation": "Re-ran /app/backend/seed_test_users.py — alice_test, bob_test, admin, manager, supervisor all present and verified (idempotent, prints 'exists -> ensured verified, role=...'). Session-level conftest fixture _reset_test_state resets blocks/suspended/failed_attempts/locked_until on alice+bob and clears friendships/requests/messages/reports collections at start of run, so the suite is fully re-runnable.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend URL: https://face-verify-chat-2.preview.emergentagent.com (from frontend/.env EXPO_PUBLIC_BACKEND_URL). Pytest entrypoint: cd /app/backend && pytest tests/ -v --tb=short. JUnit at /app/test_reports/pytest/iteration_3_results.xml. Backend split into /app/backend/routes/{auth,chat,safety,admin,verification,social,ws}.py; conftest resets state on session start. i18n: /app/frontend/src/i18n/index.ts uses AsyncStorage key 'swagchat.language', supports en/es/fr/hi/ar; LanguagePicker is rendered inside /app/frontend/app/settings.tsx with testID 'settings-language-picker' and per-option testIDs lang-option-{en|es|fr|hi|ar'}. Switching language updates header via t('profile.settings') and picker label via t('settings.language'). Two paragraphs on settings.tsx (dfe help + screenshot info) are still hardcoded English — only design polish, not a bug. Mobile-first viewport (390x844) was used for all UI verification.",
+  "rca_of_issue": "Not applicable — every targeted feature/flow passed first time. No regressions vs iteration 2."
+}

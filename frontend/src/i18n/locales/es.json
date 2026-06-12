@@ -1,0 +1,114 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "back": "Atrás",
+    "continue": "Continuar",
+    "retry": "Reintentar",
+    "close": "Cerrar",
+    "ok": "Aceptar",
+    "yes": "Sí",
+    "no": "No",
+    "send": "Enviar",
+    "search": "Buscar",
+    "error": "Error",
+    "success": "Éxito"
+  },
+  "auth": {
+    "welcome": "Bienvenido a Swag Chat",
+    "tagline": "Solo humanos verificados. Privado por diseño.",
+    "login": "Iniciar sesión",
+    "signup": "Registrarse",
+    "email": "Correo",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "acceptTerms": "Acepto los Términos y la Política de Privacidad",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "noAccount": "¿No tienes una cuenta?",
+    "logout": "Cerrar sesión",
+    "deleteAccount": "Eliminar mi cuenta"
+  },
+  "verification": {
+    "title": "Verificación de identidad",
+    "subtitle": "Verifica tu identidad para chatear",
+    "selectCountry": "Selecciona país",
+    "selectIdType": "Selecciona tipo de ID",
+    "captureId": "Capturar documento",
+    "captureSelfie": "Capturar selfie",
+    "submit": "Enviar verificación",
+    "submitting": "Verificando tu identidad...",
+    "verified": "Estás verificado",
+    "failed": "No se pudo verificar la identidad"
+  },
+  "tabs": {
+    "chats": "Chats",
+    "requests": "Solicitudes",
+    "profile": "Perfil"
+  },
+  "chats": {
+    "title": "Chats",
+    "empty": "Aún no hay chats. Busca a alguien para empezar.",
+    "searchUser": "Buscar por usuario",
+    "typeMessage": "Mensaje",
+    "viewOnce": "Ver una vez",
+    "photo": "Foto",
+    "deletedForEveryone": "Este mensaje fue eliminado",
+    "deleteForEveryone": "Eliminar para todos",
+    "deleteForMe": "Eliminar para mí",
+    "reportUser": "Reportar usuario",
+    "blockUser": "Bloquear usuario",
+    "unblockUser": "Desbloquear",
+    "callVoice": "Llamada de voz",
+    "callVideo": "Videollamada"
+  },
+  "requests": {
+    "title": "Solicitudes de amistad",
+    "incoming": "Recibidas",
+    "outgoing": "Enviadas",
+    "empty": "Sin solicitudes pendientes",
+    "accept": "Aceptar",
+    "reject": "Rechazar",
+    "sendRequest": "Enviar solicitud"
+  },
+  "profile": {
+    "title": "Perfil",
+    "verifiedBadge": "Verificado",
+    "unverifiedBadge": "No verificado",
+    "settings": "Ajustes",
+    "blockedUsers": "Usuarios bloqueados",
+    "legal": "Legal y privacidad",
+    "language": "Idioma",
+    "adminPanel": "Panel de administración"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "language": "Idioma",
+    "languageSubtitle": "Elige el idioma de la app",
+    "haptics": "Retroalimentación háptica",
+    "about": "Sobre Swag Chat",
+    "dfeHelp": "Mantén pulsado un mensaje enviado para eliminarlo en ambos lados dentro de los 60 minutos.",
+    "screenshotHelp": "Las capturas de pantalla siempre están bloqueadas en Android y detectadas en iOS — tu interlocutor recibe una notificación si alguien intenta capturar el chat o tus fotos."
+  },
+  "call": {
+    "incoming": "Llamada entrante",
+    "voiceCalling": "Llamada de voz",
+    "videoCalling": "Videollamada",
+    "calling": "Llamando...",
+    "connecting": "Conectando...",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "endCall": "Colgar",
+    "mute": "Silenciar",
+    "unmute": "Activar audio",
+    "speaker": "Altavoz",
+    "camera": "Cámara"
+  },
+  "errors": {
+    "network": "Error de red. Inténtalo de nuevo.",
+    "unauthorized": "Inicia sesión para continuar.",
+    "generic": "Algo salió mal."
+  }
+}

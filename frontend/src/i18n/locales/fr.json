@@ -1,0 +1,114 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "back": "Retour",
+    "continue": "Continuer",
+    "retry": "Réessayer",
+    "close": "Fermer",
+    "ok": "OK",
+    "yes": "Oui",
+    "no": "Non",
+    "send": "Envoyer",
+    "search": "Rechercher",
+    "error": "Erreur",
+    "success": "Succès"
+  },
+  "auth": {
+    "welcome": "Bienvenue sur Swag Chat",
+    "tagline": "Humains vérifiés uniquement. Privé par conception.",
+    "login": "Connexion",
+    "signup": "Inscription",
+    "email": "E-mail",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "acceptTerms": "J'accepte les conditions et la politique",
+    "haveAccount": "Déjà un compte ?",
+    "noAccount": "Pas de compte ?",
+    "logout": "Déconnexion",
+    "deleteAccount": "Supprimer mon compte"
+  },
+  "verification": {
+    "title": "Vérification d'identité",
+    "subtitle": "Vérifiez votre identité pour discuter",
+    "selectCountry": "Choisir un pays",
+    "selectIdType": "Choisir le type d'ID",
+    "captureId": "Capturer la pièce d'identité",
+    "captureSelfie": "Capturer un selfie",
+    "submit": "Soumettre",
+    "submitting": "Vérification en cours...",
+    "verified": "Vous êtes vérifié",
+    "failed": "Impossible de vérifier"
+  },
+  "tabs": {
+    "chats": "Discussions",
+    "requests": "Demandes",
+    "profile": "Profil"
+  },
+  "chats": {
+    "title": "Discussions",
+    "empty": "Aucune discussion. Recherchez quelqu'un pour commencer.",
+    "searchUser": "Rechercher un utilisateur",
+    "typeMessage": "Message",
+    "viewOnce": "Vue unique",
+    "photo": "Photo",
+    "deletedForEveryone": "Ce message a été supprimé",
+    "deleteForEveryone": "Supprimer pour tous",
+    "deleteForMe": "Supprimer pour moi",
+    "reportUser": "Signaler",
+    "blockUser": "Bloquer",
+    "unblockUser": "Débloquer",
+    "callVoice": "Appel vocal",
+    "callVideo": "Appel vidéo"
+  },
+  "requests": {
+    "title": "Demandes d'amis",
+    "incoming": "Reçues",
+    "outgoing": "Envoyées",
+    "empty": "Aucune demande",
+    "accept": "Accepter",
+    "reject": "Refuser",
+    "sendRequest": "Envoyer une demande"
+  },
+  "profile": {
+    "title": "Profil",
+    "verifiedBadge": "Vérifié",
+    "unverifiedBadge": "Non vérifié",
+    "settings": "Paramètres",
+    "blockedUsers": "Utilisateurs bloqués",
+    "legal": "Mentions légales",
+    "language": "Langue",
+    "adminPanel": "Panneau admin"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "languageSubtitle": "Choisir la langue de l'app",
+    "haptics": "Retour haptique",
+    "about": "À propos",
+    "dfeHelp": "Appuyez longuement sur un message envoyé pour le supprimer des deux côtés dans les 60 minutes.",
+    "screenshotHelp": "Les captures d'écran sont toujours bloquées sur Android et détectées sur iOS — votre interlocuteur est averti dès qu'une capture est tentée."
+  },
+  "call": {
+    "incoming": "Appel entrant",
+    "voiceCalling": "Appel vocal",
+    "videoCalling": "Appel vidéo",
+    "calling": "Appel...",
+    "connecting": "Connexion...",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "endCall": "Raccrocher",
+    "mute": "Couper",
+    "unmute": "Activer son",
+    "speaker": "Haut-parleur",
+    "camera": "Caméra"
+  },
+  "errors": {
+    "network": "Erreur réseau. Réessayez.",
+    "unauthorized": "Connectez-vous.",
+    "generic": "Une erreur est survenue."
+  }
+}

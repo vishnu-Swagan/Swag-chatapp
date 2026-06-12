@@ -1,0 +1,114 @@
+{
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "cancel": "रद्द करें",
+    "confirm": "पुष्टि करें",
+    "save": "सहेजें",
+    "delete": "हटाएँ",
+    "back": "वापस",
+    "continue": "जारी रखें",
+    "retry": "पुनः प्रयास",
+    "close": "बंद करें",
+    "ok": "ठीक है",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "send": "भेजें",
+    "search": "खोजें",
+    "error": "त्रुटि",
+    "success": "सफल"
+  },
+  "auth": {
+    "welcome": "Swag Chat में आपका स्वागत है",
+    "tagline": "केवल सत्यापित उपयोगकर्ता। निजी डिज़ाइन।",
+    "login": "लॉग इन",
+    "signup": "साइन अप",
+    "email": "ईमेल",
+    "username": "उपयोगकर्ता नाम",
+    "password": "पासवर्ड",
+    "acceptTerms": "मैं नियम और गोपनीयता नीति स्वीकार करता हूँ",
+    "haveAccount": "पहले से खाता है?",
+    "noAccount": "खाता नहीं है?",
+    "logout": "लॉग आउट",
+    "deleteAccount": "मेरा खाता हटाएँ"
+  },
+  "verification": {
+    "title": "पहचान सत्यापन",
+    "subtitle": "चैट शुरू करने के लिए पहचान सत्यापित करें",
+    "selectCountry": "देश चुनें",
+    "selectIdType": "ID प्रकार चुनें",
+    "captureId": "ID दस्तावेज़ कैप्चर करें",
+    "captureSelfie": "सेल्फ़ी लें",
+    "submit": "सत्यापन भेजें",
+    "submitting": "सत्यापन हो रहा है...",
+    "verified": "आप सत्यापित हैं",
+    "failed": "पहचान सत्यापित नहीं हो सकी"
+  },
+  "tabs": {
+    "chats": "चैट",
+    "requests": "अनुरोध",
+    "profile": "प्रोफ़ाइल"
+  },
+  "chats": {
+    "title": "चैट",
+    "empty": "कोई चैट नहीं। किसी को खोजें।",
+    "searchUser": "उपयोगकर्ता खोजें",
+    "typeMessage": "संदेश",
+    "viewOnce": "एक बार देखें",
+    "photo": "फ़ोटो",
+    "deletedForEveryone": "यह संदेश हटा दिया गया",
+    "deleteForEveryone": "सबके लिए हटाएँ",
+    "deleteForMe": "मेरे लिए हटाएँ",
+    "reportUser": "रिपोर्ट करें",
+    "blockUser": "ब्लॉक करें",
+    "unblockUser": "अनब्लॉक",
+    "callVoice": "वॉइस कॉल",
+    "callVideo": "वीडियो कॉल"
+  },
+  "requests": {
+    "title": "मित्र अनुरोध",
+    "incoming": "प्राप्त",
+    "outgoing": "भेजे",
+    "empty": "कोई अनुरोध नहीं",
+    "accept": "स्वीकार करें",
+    "reject": "अस्वीकार",
+    "sendRequest": "अनुरोध भेजें"
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल",
+    "verifiedBadge": "सत्यापित",
+    "unverifiedBadge": "असत्यापित",
+    "settings": "सेटिंग्स",
+    "blockedUsers": "ब्लॉक किए गए",
+    "legal": "कानूनी और गोपनीयता",
+    "language": "भाषा",
+    "adminPanel": "एडमिन पैनल"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "language": "भाषा",
+    "languageSubtitle": "ऐप की भाषा चुनें",
+    "haptics": "हैप्टिक फ़ीडबैक",
+    "about": "Swag Chat के बारे में",
+    "dfeHelp": "अपने भेजे संदेशों को 60 मिनट के अंदर दोनों ओर से हटाने के लिए दबाकर रखें।",
+    "screenshotHelp": "Android पर स्क्रीनशॉट हमेशा ब्लॉक होते हैं और iOS पर पता चलते हैं — कोई भी कैप्चर करने की कोशिश करे तो आपके साथी को सूचना मिलती है।"
+  },
+  "call": {
+    "incoming": "आने वाली कॉल",
+    "voiceCalling": "वॉइस कॉल",
+    "videoCalling": "वीडियो कॉल",
+    "calling": "कॉल हो रहा है...",
+    "connecting": "कनेक्ट हो रहा है...",
+    "accept": "स्वीकार",
+    "decline": "अस्वीकार",
+    "endCall": "समाप्त",
+    "mute": "म्यूट",
+    "unmute": "अनम्यूट",
+    "speaker": "स्पीकर",
+    "camera": "कैमरा"
+  },
+  "errors": {
+    "network": "नेटवर्क त्रुटि।",
+    "unauthorized": "कृपया लॉगिन करें।",
+    "generic": "कुछ गलत हुआ।"
+  }
+}
