@@ -3,12 +3,10 @@
   "build": {
     "preview": {
       "android": { "buildType": "apk" },
-      "ios": { "simulator": false },
-      "channel": "preview"
+      "ios": { "simulator": false }
     },
     "production": {
-      "android": { "buildType": "app-bundle" },
-      "channel": "production"
+      "android": { "buildType": "app-bundle" }
     }
   },
   "submit": { "production": {} }
