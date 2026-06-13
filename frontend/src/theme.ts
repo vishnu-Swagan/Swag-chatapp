@@ -7,11 +7,11 @@ export const C = {
   onSurface2: "#15182B",
   surface3: "#EEF0F8",     // pressed / nested surfaces
   onSurface3: "#1B1F33",
-  inverse: "#6366F1",      // primary buttons + my chat bubbles → electric indigo
+  inverse: "#8B5CF6",      // primary buttons + my chat bubbles → electric indigo
   onInverse: "#FFFFFF",
-  brand: "#6366F1",        // brand accent (links, active tabs, highlights)
+  brand: "#8B5CF6",        // brand accent (links, active tabs, highlights)
   border: "#E6E8F2",
-  borderStrong: "#6366F1",
+  borderStrong: "#8B5CF6",
   divider: "#F0F1F7",
   muted: "#8A90A8",        // secondary text — cool gray, softer than before
   mutedDark: "#5A6078",
