@@ -14,6 +14,11 @@ JWT_ALGO = "HS256"
 TOKEN_DAYS = 7
 OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 
+# Stream Video (audio/video calling). Secret is server-side only; never sent to clients.
+STREAM_API_KEY = os.environ.get('STREAM_API_KEY')
+STREAM_API_SECRET = os.environ.get('STREAM_API_SECRET')
+STREAM_TOKEN_TTL_SECONDS = 24 * 60 * 60  # client tokens valid for 24h
+
 USERNAME_RE = re.compile(r"^[a-z0-9_]{3,20}$")
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 

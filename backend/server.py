@@ -5,7 +5,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from db import client, db
 from routes import (admin, auth, chat, groups, oversight, safety, social,
-                    status, verification, ws)
+                    status, stream, verification, ws)
 
 app = FastAPI(title="Swag Chat API")
 
@@ -19,6 +19,7 @@ api_router.include_router(status.router, tags=["status"])
 api_router.include_router(safety.router, tags=["safety"])
 api_router.include_router(admin.router, tags=["admin"])
 api_router.include_router(oversight.router, tags=["oversight"])
+api_router.include_router(stream.router, tags=["stream"])
 api_router.include_router(ws.router)
 
 app.include_router(api_router)
