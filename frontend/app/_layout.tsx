@@ -7,10 +7,10 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import I18nGate from "@/src/components/I18nGate";
-import IncomingCallOverlay from "@/src/components/IncomingCallOverlay";
 import AppVersionGate from "@/src/components/AppVersionGate";
 import { AuthProvider } from "@/src/context/AuthContext";
 import { SocketProvider } from "@/src/context/SocketContext";
+import { StreamVideoProvider } from "@/src/context/StreamVideoProvider";
 import { useIconFonts } from "@/src/hooks/use-icon-fonts";
 
 // Keep the native splash visible from cold start until icon fonts register.
@@ -39,16 +39,17 @@ export default function RootLayout() {
           <I18nGate>
             <AuthProvider>
               <SocketProvider>
-                <StatusBar style="dark" />
-                <Stack
-                  screenOptions={{
-                    headerShown: false,
-                    animation: "slide_from_right",
-                    animationDuration: 260,
-                  }}
-                />
-                <IncomingCallOverlay />
-                <AppVersionGate />
+                <StreamVideoProvider>
+                  <StatusBar style="dark" />
+                  <Stack
+                    screenOptions={{
+                      headerShown: false,
+                      animation: "slide_from_right",
+                      animationDuration: 260,
+                    }}
+                  />
+                  <AppVersionGate />
+                </StreamVideoProvider>
               </SocketProvider>
             </AuthProvider>
           </I18nGate>

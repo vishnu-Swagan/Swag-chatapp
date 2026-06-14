@@ -413,10 +413,8 @@ export default function ChatRoom() {
   };
 
   const startCall = (video: boolean) => {
-    if (Platform.OS !== "web") {
-      toast.show("Calls need a development build — try the web preview.");
-      return;
-    }
+    // Native uses Stream Video; web uses manual WebRTC. The call screen handles
+    // creating/ringing the call from these params.
     router.push(
       `/call/${friendId}?video=${video ? 1 : 0}&role=caller&username=${username}`,
     );

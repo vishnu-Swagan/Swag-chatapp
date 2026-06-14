@@ -12,8 +12,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.swagchat.app",
       "infoPlist": {
-        "NSCameraUsageDescription": "Take a selfie and ID photo to verify identity",
-        "NSMicrophoneUsageDescription": "Talk during voice and video calls",
+        "NSCameraUsageDescription": "Swag uses your camera for video calls and identity verification.",
+        "NSMicrophoneUsageDescription": "Swag uses your microphone for voice and video calls.",
         "NSPhotoLibraryUsageDescription": "Share photos from your gallery in chat",
         "NSLocationWhenInUseUsageDescription": "Share your live location with friends in chat"
       }
@@ -31,7 +31,8 @@
         "android.permission.READ_MEDIA_IMAGES",
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.BLUETOOTH_CONNECT"
       ]
     },
     "web": {
@@ -57,7 +58,23 @@
       "expo-audio",
       "expo-video",
       "expo-localization",
-      "expo-asset"
+      "expo-asset",
+      "@stream-io/video-react-native-sdk",
+      [
+        "@config-plugins/react-native-webrtc",
+        {
+          "cameraPermission": "Swag uses your camera for video calls and identity verification.",
+          "microphonePermission": "Swag uses your microphone for voice and video calls."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 24
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
